@@ -1,0 +1,306 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+:root {
+    --orange-primary: #FF9700;
+    --orange-dark: #E67E00;
+    --orange-light: #FFB84D;
+    --orange-very-light: #FFF5E6;
+    --gray-dark: #1a1a1a;
+    --gray-light: #f0f0f0;
+    --gray-border: #ddd;
+    --success: #27ae60;
+    --white: #ffffff;
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #fff9f0 0%, #fff0e6 50%, #ffe6cc 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 0;
+    padding-top: var(--safe-area-inset-top);
+    padding-bottom: var(--safe-area-inset-bottom);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.app-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    padding-top: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+header {
+    background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-dark) 100%);
+    color: var(--white);
+    padding: 24px 16px;
+    border-radius: 12px;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(255, 151, 0, 0.2);
+    animation: slideDown 0.6s ease-out;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+header p {
+    font-size: 0.85rem;
+    opacity: 0.95;
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 20px;
+    animation: slideUp 0.6s ease-out;
+}
+
+.container {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid var(--orange-very-light);
+    transition: all 0.3s ease;
+}
+
+.container:active {
+    box-shadow: 0 8px 32px rgba(255, 151, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.container h2 {
+    font-size: 1.2rem;
+    color: var(--orange-primary);
+    margin-bottom: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-dark);
+    margin-bottom: 4px;
+    display: block;
+}
+
+input[type="number"],
+select {
+    padding: 12px 14px;
+    border: 2px solid var(--gray-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    background-color: var(--white);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="number"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--orange-primary);
+    box-shadow: 0 0 0 3px rgba(255, 151, 0, 0.1);
+    background-color: var(--orange-very-light);
+}
+
+select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23FF9700' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+input[type="number"]::placeholder {
+    color: #999;
+}
+
+button {
+    padding: 14px;
+    background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-dark) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(255, 151, 0, 0.3);
+    margin-top: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    active-color: transparent;
+}
+
+button:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 6px rgba(255, 151, 0, 0.3);
+}
+
+#resultado_cobranca,
+#resultado_liquido {
+    margin-top: 16px;
+    padding: 16px;
+    background: var(--orange-very-light);
+    border-left: 4px solid var(--orange-primary);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+    min-height: 70px;
+    display: none;
+    animation: slideIn 0.3s ease-out;
+}
+
+#resultado_cobranca.active,
+#resultado_liquido.active {
+    display: block;
+}
+
+#resultado_cobranca p,
+#resultado_liquido p {
+    margin: 6px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.valor-em-conta {
+    font-weight: 700;
+    color: var(--success);
+    font-size: 1rem;
+}
+
+.instrucoes {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    border: 2px solid var(--gray-light);
+    margin-bottom: 20px;
+}
+
+.instrucoes h3 {
+    font-size: 1.1rem;
+    color: var(--orange-primary);
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.step {
+    background: var(--orange-very-light);
+    padding: 12px;
+    border-left: 4px solid var(--orange-primary);
+    margin: 10px 0;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--gray-dark);
+    line-height: 1.4;
+}
+
+.step strong {
+    color: var(--orange-primary);
+    display: block;
+    margin-bottom: 4px;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (min-width: 769px) {
+    .main-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 0.95rem;
+    }
+
+    .app-container {
+        padding: 20px;
+    }
+}
+
+/* Prevenir zoom indesejado */
+input, select, button {
+    font-size: 16px !important;
+}
