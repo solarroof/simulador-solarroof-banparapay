@@ -1,11 +1,20 @@
 function calcular() {
 
-  const VALOR_BASE = 26500;
+  const valorProduto = Number(document.getElementById("valorProduto").value);
+  const semJuros = Number(document.getElementById("semJuros").value);
+  const parcelas = Number(document.getElementById("parcelas").value);
+  const resultado = document.getElementById("resultado");
 
-  // 📊 Tabela fixa de CET
-  const tabelaCET = {
-    8: 9.40,
-    9: 10.00,
+  const CET = {
+    1: 3.14,
+    2: 3.99,
+    3: 4.74,
+    4: 5.51,
+    5: 6.27,
+    6: 7.05,
+    7: 8.20,
+    8: 8.99,
+    9: 9.79,
     10: 10.57,
     11: 11.37,
     12: 12.18,
@@ -20,42 +29,43 @@ function calcular() {
     21: 19.96
   };
 
-  const semJuros = Number(document.getElementById("semJuros").value);
-  const parcelas = Number(document.getElementById("parcelas").value);
-  const resultado = document.getElementById("resultado");
-
-  if (!semJuros || !parcelas) {
-    resultado.innerHTML = "⚠️ Selecione todas as opções.";
+  if (!valorProduto || !semJuros || !parcelas) {
+    resultado.innerHTML = "⚠️ Preencha todos os campos.";
     return;
   }
 
   if (parcelas < semJuros) {
-    resultado.innerHTML = "⚠️ As parcelas escolhidas não podem ser menores que o limite sem juros.";
+    resultado.innerHTML = "⚠️ Parcelas do cliente não podem ser menores que o limite sem juros.";
     return;
   }
 
-  const cetBase = tabelaCET[semJuros];
-  const cetEscolhido = tabelaCET[parcelas];
+  const cetBase = CET[semJuros];
+  const cetEscolhido = CET[parcelas];
 
-  const diferencaCET = cetEscolhido - cetBase;
-  const acrescimo = (diferencaCET * VALOR_BASE) / 100;
-  const valorCartao = VALOR_BASE + acrescimo;
+  const diferenca = cetEscolhido - cetBase;
+  const acrescimo = (diferenca * valorProduto) / 100;
+  const valorCartao = valorProduto + acrescimo;
   const valorParcela = valorCartao / parcelas;
 
   resultado.innerHTML = `
     <strong>Resumo da Simulação</strong><br><br>
 
-    Valor base: R$ ${VALOR_BASE.toLocaleString('pt-BR', {minimumFractionDigits:2})}<br>
-    Sem juros até: ${semJuros}x (CET ${cetBase}%)<br>
-    Parcelamento escolhido: ${parcelas}x (CET ${cetEscolhido}%)<br><br>
+    Valor do produto:
+    R$ ${valorProduto.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}<br>
+
+    Sem juros até:
+    ${semJuros}x (CET ${cetBase}%)<br>
+
+    Parcelamento escolhido:
+    ${parcelas}x (CET ${cetEscolhido}%)<br><br>
 
     Acréscimo ao cliente:
-    <strong>R$ ${acrescimo.toLocaleString('pt-BR', {minimumFractionDigits:2})}</strong><br>
+    <strong>R$ ${acrescimo.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong><br>
 
     Valor total no cartão:
-    <strong>R$ ${valorCartao.toLocaleString('pt-BR', {minimumFractionDigits:2})}</strong><br>
+    <strong>R$ ${valorCartao.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong><br>
 
     Valor da parcela:
-    <strong>${parcelas}x de R$ ${valorParcela.toLocaleString('pt-BR', {minimumFractionDigits:2})}</strong>
+    <strong>${parcelas}x de R$ ${valorParcela.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong>
   `;
 }
